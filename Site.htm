@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Saint-Valentin</title>
+  <style>
+      body {
+          text-align: center;
+          font-family: Arial, sans-serif;
+          margin-top: 50px;
+          background: linear-gradient(to right, #ff758c, #ff7eb3);
+          color: white;
+          overflow: hidden;
+      }
+      button {
+          font-size: 20px;
+          padding: 10px 20px;
+          margin: 10px;
+          cursor: pointer;
+          border: none;
+          border-radius: 5px;
+          transition: transform 0.3s ease, opacity 0.3s ease;
+      }
+      .yes-button {
+          background-color: #ffcccb;
+          color: black;
+      }
+      .no-button {
+          background-color: #ff4d4d;
+          color: white;
+          position: absolute;
+          animation: fadeIn 0.5s ease-in-out, moveAround 2s infinite alternate;
+      }
+      .message {
+          font-size: 18px;
+          font-style: italic;
+          margin-top: 20px;
+          opacity: 0;
+          transform: translateY(10px);
+          animation: fadeInUp 0.5s ease-in-out forwards;
+      }
+      .heart {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%) scale(0);
+          font-size: 100px;
+          color: red;
+          animation: popHeart 0.5s ease-in-out forwards;
+      }
+      @keyframes fadeIn {
+          from { opacity: 0; transform: scale(0.8); }
+          to { opacity: 1; transform: scale(1); }
+      }
+      @keyframes fadeInUp {
+          from { opacity: 0; transform: translateY(10px); }
+          to { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes moveAround {
+          from { transform: translate(0, 0); }
+          to { transform: translate(10px, 10px); }
+      }
+      @keyframes popHeart {
+          from { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+          to { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+      }
+      .confetti {
+          position: absolute;
+          width: 10px;
+          height: 10px;
+          background-color: yellow;
+          opacity: 0.7;
+          border-radius: 50%;
+          animation: confettiFall 1.5s linear forwards;
+      }
+      @keyframes confettiFall {
+          from { transform: translateY(-50px) rotate(0deg); }
+          to { transform: translateY(100vh) rotate(360deg); }
+      }
+  </style>
+</head>
+<body>
+<h1>Eva, veux-tu être ma Valentine ?</h1>
+<div id="buttons">
+  <button class="yes-button" onclick="sayYes()">Oui</button>
+  <button class="no-button" onclick="addNoButton()">Non</button>
+</div>
+<div id="messages"></div>
+<script>
+  let messages = [
+    "stpp ma evaaa",
+    "imagineeee une bague pandora",
+    "un jour je verrais nori en plus",
+    "et ta mere la goat",
+    "et j espere bien m entendre avec ta soeur",
+    "m enfin alleeee dis ouiiii je t aime bcp evaaa"
+  ];
+  let messageIndex = 0;
+
+  function sayYes() {
+    document.body.innerHTML = "<h1>Merciiiii jle savais qu au fond tu le voulaissss, on ce verra la semaine du 14 février alors enfinnnnn j ai hâteeeeee de fou. Naaaan en vrai je rigole tu sais bien, fin a moitier je veux Vrmmt(si ta mère dis oui pour que tu rentre un jour plus tard je dis pas nooon hein mdrrrr, mais voilà. Oublie pas que t la meilleurrrre et que quoi qu il soit arrivé ou va arrive tu sera toujours la meilleur, LA princesse evaaaa, et je l espère ma un jour. Donc ta pas a t en faire t une personne incroyable qui malgres tout, même si tu vas pas bien vas penser au bonheure des autres et ça c incroyableee, t giga belle en plus, et ta voix est mammamamammamamamma. Donc oui Eva t adorable et apaisante, je sais que c pas forcément facile en ce moment mais je sais que tu vas bien finir par t en sortir, ne doute jamais de toiiiii comme t la personne la plus incroyable que j ai rencontré de ma vie. Alleeeee evaaaa. Je t aime énormémenttt, ça me manque un peu quznd tu m envoyais de photos de toi de temps en temps, je te contemplais tellementttt, je t admire vrmmmmt enfaite. Alleeee courage evaaa, t la meilleurrrr fille au mondeee. Et oublie pas de demande à ta mèreee mdrrrr</h1>";
+    let heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "❤️";
+    document.body.appendChild(heart);
+    launchConfetti();
+  }
+
+  function addNoButton() {
+    let newButton = document.createElement("button");
+    newButton.innerText = "Non";
+    newButton.className = "no-button";
+    newButton.style.left = Math.random() * (window.innerWidth - 100) + "px";
+    newButton.style.top = Math.random() * (window.innerHeight - 50) + "px";
+    newButton.onclick = addNoButton;
+    document.body.appendChild(newButton);
+
+    if (messageIndex < messages.length) {
+      let messageDiv = document.createElement("div");
+      messageDiv.className = "message";
+      messageDiv.innerText = messages[messageIndex];
+      document.getElementById("messages").appendChild(messageDiv);
+      messageIndex++;
+    }
+  }
+
+  function launchConfetti() {
+    for (let i = 0; i < 100; i++) {
+      let confetti = document.createElement("div");
+      confetti.className = "confetti";
+      confetti.style.left = Math.random() * window.innerWidth + "px";
+      confetti.style.top = Math.random() * -50 + "px";
+      confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+      confetti.style.animationDuration = (Math.random() * 2 + 1) + "s";
+      document.body.appendChild(confetti);
+      setTimeout(() => confetti.remove(), 2000);
+    }
+  }
+</script>
+</body>
+</html>
